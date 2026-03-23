@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: chess-backend
+  
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/chess_db
+      auto-index-creation: true
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+logging:
+  level:
+    root: INFO
+    com.chess: DEBUG
+
+game:
+  max-idle-time-seconds: 600
+  allow-anonymous-play: true

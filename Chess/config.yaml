@@ -1,0 +1,93 @@
+# Chess Game - Configuration
+
+project:
+  name: chess-game
+  version: 0.1.0
+  description: Two-player chess game with Angular frontend and Scala Spring Boot backend
+
+backend:
+  name: chess-backend
+  language: scala
+  framework: spring-boot
+  port: 8080
+  context-path: /api
+  
+  database:
+    type: mongodb
+    uri: mongodb://localhost:27017/chess_db
+    auto-index-creation: true
+  
+  websocket:
+    enabled: true
+    endpoint: /ws
+  
+  logging:
+    level: DEBUG
+    package: com.chess
+  
+  features:
+    - standard-chess-rules
+    - local-multiplayer
+    - online-multiplayer
+    - move-validation
+    - checkmate-detection
+    - stalemate-detection
+
+frontend:
+  name: chess-frontend
+  language: typescript
+  framework: angular
+  port: 4200
+  
+  ui-modes:
+    - tui: Text User Interface (ASCII board)
+    - gui: Graphical User Interface (visual pieces)
+  
+  assets:
+    path: /assets
+    pieces-path: ARABIAN CHESS/sprites/pieces/
+    board-path: ARABIAN CHESS/sprites/board/
+    coords-path: ARABIAN CHESS/sprites/nums & letters/
+  
+  features:
+    - home-page
+    - game-creation
+    - game-joining
+    - tui-board-display
+    - gui-board-display
+    - websocket-real-time-sync
+    - responsive-design
+
+# WebSocket Configuration
+websocket:
+  host: localhost
+  port: 8080
+  protocol: ws
+  game-endpoint: /games/{gameId}
+  events:
+    - move_made
+    - game_state_change
+    - check_warning
+    - game_over
+
+# Game Configuration
+game:
+  max-players-per-game: 2
+  max-idle-time-seconds: 600
+  allow-anonymous-play: true
+  rules: STANDARD_CHESS
+
+# Development Environment
+development:
+  backend-url: http://localhost:8080/api
+  ws-url: ws://localhost:8080/api/ws
+  cors-origins:
+    - http://localhost:4200
+    - http://localhost:3000
+
+# Production Environment
+production:
+  backend-url: https://api.chess-game.com
+  ws-url: wss://api.chess-game.com/ws
+  cors-origins:
+    - https://chess-game.com
